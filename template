@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="/bower_components/github-markdown-css/github-markdown.css">
+</head>
+<body>
+
+<a href="/">HOME</a>
+
+<style>
+    .markdown-body {
+        min-width: 200px;
+        max-width: 790px;
+        margin: 0 auto;
+        padding: 30px;
+    }
+</style>
+<div class="markdown-body">
+    @@content@@
+</div>
+
+
+</body>
+</html>

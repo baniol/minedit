@@ -1,0 +1,15 @@
+{
+  "name": "minedit",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Marcin Baniowski <marcin.baniowski@performgroup.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "github-markdown-css": "~2.1.1"
+  }
+}

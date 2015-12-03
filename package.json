@@ -1,0 +1,15 @@
+{
+  "name": "minedit",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "marked": "^0.3.5",
+    "watch": "^0.16.0"
+  }
+}
