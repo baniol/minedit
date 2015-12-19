@@ -10,6 +10,7 @@
   "homepage": "",
   "private": true,
   "dependencies": {
-    "github-markdown-css": "~2.1.1"
+    "github-markdown-css": "~2.1.1",
+    "skeleton": "~2.0.4"
   }
 }

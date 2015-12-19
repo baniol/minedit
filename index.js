@@ -5,8 +5,6 @@ var watch = require('watch');
 var marked = require('marked');
 var mkdirp = require('mkdirp');
 
-var template = fs.readFileSync(path.join(__dirname, 'sources/template'), 'utf8');
-
 var sourceDir = path.join(__dirname, 'sources');
 var targetDir = path.join(__dirname, 'site');
 
@@ -26,6 +24,10 @@ function watchFiles() {
   });
 }
 
+function getTemplate() {
+  return fs.readFileSync(path.join(__dirname, 'sources/template.html'), 'utf8');
+}
+
 function saveFile(file, newFile) {
   var message = newFile ? 'A new file has been added: ' + file : 'File: ' + file + ' has been updated';
   console.log(message);
@@ -38,24 +40,30 @@ function saveFile(file, newFile) {
     var dirName = path.dirname(targetPath);
     mkdirp(dirName, function (err) {
       if (err) console.error(err)
-      else console.log('New site directory created!')
+      //else console.log('New site directory created!')
       writeCompiled(source, targetPath);
     });
+  }
+  else if (path.basename(file) === 'template.html') {
+    console.log(file);
+    compileAll();
   }
 }
 
 function writeCompiled(source, targetPath) {
-    var compiled = template.replace('@@content@@', marked(source));
-    fs.writeFile(targetPath, compiled);
+  var template = getTemplate();
+  var compiled = template.replace('@@content@@', marked(source));
+  fs.writeFile(targetPath, compiled);
 }
 
 function compileAll() {
-  recursive(sourceDir, [], (err, files) => {
+  recursive(sourceDir, [], function(err, files) {
     if (err) {
       throw err;
     }
     files.forEach(function (f) {
-      saveFile(f);
+      if (path.basename(f) !== 'template.html')
+        saveFile(f);
     });
   });
 }
