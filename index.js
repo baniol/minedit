@@ -6,6 +6,7 @@ var marked = require('marked');
 var mkdirp = require('mkdirp');
 
 var template = fs.readFileSync(path.join(__dirname, 'sources/template'), 'utf8');
+
 var sourceDir = path.join(__dirname, 'sources');
 var targetDir = path.join(__dirname, 'site');
 
@@ -15,22 +16,19 @@ watchFiles();
 function watchFiles() {
   watch.watchTree(__dirname, function (f, curr, prev) {
     if (typeof f == "object" && prev === null && curr === null) {
-      // Finished walking the tree
     } else if (prev === null) {
-      // f is a new file
       saveFile(f, true);
     } else if (curr.nlink === 0) {
-      // f was removed
       console.log('file ' + f + ' removed');
-      //removeTemplate(f);
     } else {
-      // f was changed
       saveFile(f);
     }
   });
 }
 
 function saveFile(file, newFile) {
+  var message = newFile ? 'A new file has been added: ' + file : 'File: ' + file + ' has been updated';
+  console.log(message);
   var ext = path.extname(file);
   if (ext === '.md') {
     var targetFile = file.replace(/\.md$/, '.html');

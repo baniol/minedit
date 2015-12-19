@@ -3,3 +3,5 @@ bower_components
 *.html
 sources/*
 site/*
+run.pid
+*.pwd
