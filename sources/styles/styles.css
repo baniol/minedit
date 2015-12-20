@@ -1,0 +1,8 @@
+.main-nav {
+  margin-top:5%;
+}
+
+.main-nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}

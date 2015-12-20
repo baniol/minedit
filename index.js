@@ -11,6 +11,8 @@ var targetDir = path.join(__dirname, 'site');
 compileAll();
 watchFiles();
 
+var mainTemplate = 'main.html';
+
 function watchFiles() {
   watch.watchTree(__dirname, function (f, curr, prev) {
     if (typeof f == "object" && prev === null && curr === null) {
@@ -25,15 +27,15 @@ function watchFiles() {
 }
 
 function getTemplate() {
-  return fs.readFileSync(path.join(__dirname, 'sources/template.html'), 'utf8');
+  return fs.readFileSync(path.join(__dirname, 'templates', mainTemplate), 'utf8');
 }
 
 function saveFile(file, newFile) {
   var message = newFile ? 'A new file has been added: ' + file : 'File: ' + file + ' has been updated';
   console.log(message);
   var ext = path.extname(file);
-  if (ext === '.md') {
-    var targetFile = file.replace(/\.md$/, '.html');
+  if (ext === '.md' || ext === '.css') {
+    var targetFile = ext === '.md' ? file.replace(/\.md$/, '.html') : file;
     var diff = path.relative(sourceDir, targetFile);
     var targetPath = path.join(targetDir, diff);
     var source = fs.readFileSync(file, 'utf8');
@@ -41,18 +43,18 @@ function saveFile(file, newFile) {
     mkdirp(dirName, function (err) {
       if (err) console.error(err)
       //else console.log('New site directory created!')
-      writeCompiled(source, targetPath);
+      writeCompiled(source, targetPath, ext);
     });
   }
-  else if (path.basename(file) === 'template.html') {
+  else if (path.basename(file) === mainTemplate) {
     console.log(file);
     compileAll();
   }
 }
 
-function writeCompiled(source, targetPath) {
+function writeCompiled(source, targetPath, ext) {
   var template = getTemplate();
-  var compiled = template.replace('@@content@@', marked(source));
+  var compiled = ext === '.md' ? template.replace('@@content@@', marked(source)) : source;
   fs.writeFile(targetPath, compiled);
 }
 
@@ -62,7 +64,7 @@ function compileAll() {
       throw err;
     }
     files.forEach(function (f) {
-      if (path.basename(f) !== 'template.html')
+      if (path.basename(f) !== mainTemplate)
         saveFile(f);
     });
   });

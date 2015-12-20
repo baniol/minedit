@@ -1,7 +1,8 @@
 node_modules
 bower_components
 *.html
-sources/*
+sources/**/*.md
 site/*
 run.pid
 *.pwd
+*.swp
