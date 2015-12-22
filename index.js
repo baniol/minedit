@@ -4,9 +4,15 @@ var recursive = require('recursive-readdir');
 var watch = require('watch');
 var marked = require('marked');
 var mkdirp = require('mkdirp');
+var config;
+try {
+  config = require('./config');
+} catch (e) {
+  config = {};
+}
 
-var sourceDir = path.join(__dirname, 'sources');
-var targetDir = path.join(__dirname, 'site');
+var sourceDir = config.sourceDir ||  path.join(__dirname, 'sources');
+var targetDir = config.targetDir || path.join(__dirname, 'site');
 
 compileAll();
 watchFiles();
