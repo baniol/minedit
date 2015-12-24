@@ -13,11 +13,16 @@ try {
 
 var sourceDir = config.sourceDir ||  path.join(__dirname, 'sources');
 var targetDir = config.targetDir || path.join(__dirname, 'site');
+var mainTemplate = 'main.html';
+
+if(process.argv[2] === 'compile') {
+  compileAll();
+  return;
+}
 
 compileAll();
 watchFiles();
 
-var mainTemplate = 'main.html';
 
 function watchFiles() {
   watch.watchTree(__dirname, function (f, curr, prev) {

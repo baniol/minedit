@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "compile": "node index.js compile",
     "monit": "nohup node index.js > /dev/null 2>&1 & echo $! > run.pid",
     "start": "node index.js",
     "stop": "kill -9 \"$(< run.pid)\"",
