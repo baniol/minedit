@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "compile": "node index.js compile",
+    "map": "node index.js map",
     "monit": "nohup node index.js > /dev/null 2>&1 & echo $! > run.pid",
     "start": "node index.js",
     "stop": "kill -9 \"$(< run.pid)\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Marcin Baniowski",
   "license": "MIT",
   "dependencies": {
     "marked": "^0.3.5",

@@ -4,5 +4,5 @@ bower_components
 sources/**/*.md
 site/*
 run.pid
-*.pwd
+.idea
 *.swp

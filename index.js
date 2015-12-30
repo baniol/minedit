@@ -4,25 +4,48 @@ var recursive = require('recursive-readdir');
 var watch = require('watch');
 var marked = require('marked');
 var mkdirp = require('mkdirp');
-var config;
-try {
-  config = require('./config');
-} catch (e) {
-  config = {};
-}
+
+var minedit = require('./lib/minedit');
+
+var config = require('./config');
 
 var sourceDir = config.sourceDir ||  path.join(__dirname, 'sources');
 var targetDir = config.targetDir || path.join(__dirname, 'site');
-var mainTemplate = 'main.html';
+
+var param = process.argv[2];
+
+switch (param) {
+  case "compile": return minedit.compile();
+  case "sitemap": return minedit.generateSiteMap();
+  default: return minedit.watch();
+}
+
+// ====================================
 
 if(process.argv[2] === 'compile') {
   compileAll();
   return;
 }
 
+if(process.argv[2] === 'map') {
+  getTree();
+  return;
+}
+
+function getTree() {
+  var walkDir = require('./lib/walkdir');
+  walkDir.walkDir(path.join(__dirname, 'site'), function (err, tree) {
+    var t = walkDir.getMap(tree);
+    compileTree(t);
+  });
+}
+
+function compileTree(sitemap) {
+  writeCompiled(sitemap, path.join(targetDir, 'sitemap.html'), '.md');
+}
+
 compileAll();
 watchFiles();
-
 
 function watchFiles() {
   watch.watchTree(__dirname, function (f, curr, prev) {
@@ -38,7 +61,7 @@ function watchFiles() {
 }
 
 function getTemplate() {
-  return fs.readFileSync(path.join(__dirname, 'templates', mainTemplate), 'utf8');
+  return fs.readFileSync(path.join(__dirname, 'templates', config.mainTemplate), 'utf8');
 }
 
 function saveFile(file, newFile) {
@@ -57,7 +80,7 @@ function saveFile(file, newFile) {
       writeCompiled(source, targetPath, ext);
     });
   }
-  else if (path.basename(file) === mainTemplate) {
+  else if (path.basename(file) === config.mainTemplate) {
     console.log(file);
     compileAll();
   }
@@ -75,7 +98,7 @@ function compileAll() {
       throw err;
     }
     files.forEach(function (f) {
-      if (path.basename(f) !== mainTemplate)
+      if (path.basename(f) !== config.mainTemplate)
         saveFile(f);
     });
   });
