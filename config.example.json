@@ -1,5 +1,6 @@
 {
-  "sourceDir": "",
-  "targetDir": "",
+  "sourceDir": "./sources",
+  "targetDir": "./site",
   "mainTemplate": "main.html"
 }
+

@@ -1,35 +1,17 @@
-var path = require('path');
-var fs = require('fs');
-var recursive = require('recursive-readdir');
 var watch = require('watch');
-var marked = require('marked');
-var mkdirp = require('mkdirp');
-
-var minedit = require('./lib/minedit');
 
 var config = require('./config');
 
-var sourceDir = config.sourceDir ||  path.join(__dirname, 'sources');
-var targetDir = config.targetDir || path.join(__dirname, 'site');
+var Minedit = require('./lib/minedit');
+var minedit = new Minedit(config);
 
-var param = process.argv[2];
-
-switch (param) {
-  case "compile": return minedit.compile();
-  case "sitemap": return minedit.generateSiteMap();
-  default: return minedit.watch();
-}
-
-// ====================================
-
-if(process.argv[2] === 'compile') {
-  compileAll();
-  return;
-}
-
-if(process.argv[2] === 'map') {
-  getTree();
-  return;
+switch (process.argv[2]) {
+  case "compile":
+    return minedit.compile();
+  case "sitemap":
+    return minedit.generateSiteMap();
+  default:
+    return minedit.watch();
 }
 
 function getTree() {
@@ -60,9 +42,6 @@ function watchFiles() {
   });
 }
 
-function getTemplate() {
-  return fs.readFileSync(path.join(__dirname, 'templates', config.mainTemplate), 'utf8');
-}
 
 function saveFile(file, newFile) {
   var message = newFile ? 'A new file has been added: ' + file : 'File: ' + file + ' has been updated';
@@ -86,14 +65,9 @@ function saveFile(file, newFile) {
   }
 }
 
-function writeCompiled(source, targetPath, ext) {
-  var template = getTemplate();
-  var compiled = ext === '.md' ? template.replace('@@content@@', marked(source)) : source;
-  fs.writeFile(targetPath, compiled);
-}
 
 function compileAll() {
-  recursive(sourceDir, [], function(err, files) {
+  recursive(sourceDir, [], function (err, files) {
     if (err) {
       throw err;
     }
