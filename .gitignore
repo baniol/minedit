@@ -2,7 +2,7 @@ config.json
 node_modules
 bower_components
 sources/**/*.md
-site/*
+public/*
 run.pid
 .idea
 *.swp
