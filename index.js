@@ -10,7 +10,7 @@ switch (process.argv[2]) {
   case 'copy':
     return minedit.copyAssets();
   case 'clear':
-    return minedit.clearDir();
+    return minedit.clear();
   default:
     return minedit.compile();
 }

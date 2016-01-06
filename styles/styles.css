@@ -1,0 +1,16 @@
+body {
+  box-sizing:border-box;
+  min-width:200px;
+  max-width:980px;
+  margin:0 auto;
+  padding:45px;
+}
+
+.main-nav {
+  margin-top:5%;
+}
+
+.main-nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
