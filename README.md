@@ -53,4 +53,6 @@ To be able to compile markdown files from the source folder with a global `mined
 
 ### Displaying the config
 
-In order to display the configuration, for example if you forgot where the source files are stored, run `minedit config`
+In order to display the configuration run `minedit config`.
+
+To display the path to the source files run `minedit sources`.
