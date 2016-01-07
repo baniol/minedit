@@ -4,7 +4,7 @@
   "mainTemplate": "main.html",
   "copyAssets": [
     {
-      "source": "./sources/styles/styles.css",
+      "source": "./styles/styles.css",
       "target": "./public/styles/"
     },
     {

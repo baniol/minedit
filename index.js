@@ -11,6 +11,8 @@ switch (process.argv[2]) {
     return minedit.copyAssets();
   case 'clear':
     return minedit.clear();
+  case 'config':
+    return minedit.displayConfig();
   default:
     return minedit.compile();
 }

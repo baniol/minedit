@@ -2,13 +2,15 @@
   "name": "minedit",
   "version": "0.1.1",
   "description": "simple markdown to html page generator",
+  "bin": "bin/minedit",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node --harmony index.js",
     "copy": "node index.js copy",
     "clear": "node index.js clear",
     "map": "node index.js map"
   },
+  "private": "true",
   "author": "Marcin Baniowski",
   "license": "MIT",
   "dependencies": {
