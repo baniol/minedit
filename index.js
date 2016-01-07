@@ -13,6 +13,9 @@ switch (process.argv[2]) {
     return minedit.clear();
   case 'config':
     return minedit.displayConfig();
+  case 'sources':
+    console.log('Source files path: ' + minedit.displaySourcePath());
+    break;
   default:
     return minedit.compile();
 }
