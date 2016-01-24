@@ -1,0 +1,15 @@
+{
+  "sourceDir": "./sources",
+  "targetDir": "./public",
+  "mainTemplate": "main.html",
+  "copyAssets": [
+    {
+      "source": "./styles/styles.css",
+      "target": "./public/styles/"
+    },
+    {
+      "source": "./bower_components/github-markdown-css/github-markdown.css",
+      "target": "./public/styles/"
+    }
+  ]
+}
